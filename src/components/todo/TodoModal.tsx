@@ -5,21 +5,27 @@ import {
   DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import { useAppDispatch } from "../../redux/hook";
+import { addTodo } from "../../redux/features/todoSlice";
 
 export function TodoModal() {
   const [task, setTask] = useState("");
   const [description, setDescription] = useState("");
+  const dispatch = useAppDispatch();
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    console.log({ task, description });
+
+    const randomString = Math.random().toString(36).substring(2, 7);
+
+    const taskDetails = { title: task, description, id: randomString };
+    dispatch(addTodo(taskDetails));
   };
 
   return (
@@ -44,16 +50,17 @@ export function TodoModal() {
               <Label htmlFor="description" className="text-right">
                 Description
               </Label>
-              <Input onBlur={(e) => setTask(e.target.value)} id="description" className="col-span-3" />
+              <Input onBlur={(e) => setDescription(e.target.value)} id="description" className="col-span-3" />
             </div>
           </div>
-          <DialogFooter asChild>
-            <DialogClose asChild>
+
+          <DialogClose asChild className="">
+            <div className="flex justify-end">
               <Button className="bg-gradient-primary" type="submit">
                 Save task
               </Button>
-            </DialogClose>
-          </DialogFooter>
+            </div>
+          </DialogClose>
         </form>
       </DialogContent>
     </Dialog>

@@ -1,14 +1,28 @@
+import { removeTodo, toggleIsCompleteState } from "../../redux/features/todoSlice";
+import { useAppDispatch } from "../../redux/hook";
 import { Button } from "../ui/button";
 
-const TodoCard = () => {
+type TTodoCard = {
+  title: string;
+  description: string;
+  id: string;
+  isCompleted?: boolean;
+};
+const TodoCard = ({ title, description, id, isCompleted }: TTodoCard) => {
+  const dispatch = useAppDispatch();
+
+  const handleToggleIsCompleteState = () => {
+    dispatch(toggleIsCompleteState(id));
+  };
   return (
     <div className=" bg-white rounded-lg flex items-center justify-between  p-2 border m-[5px]">
-      <input type="checkbox" />
-      <p className=" font-medium text-lg">Todo Title</p>
-      <p>Time</p>
-      <p>description</p>
+      <input onClick={handleToggleIsCompleteState} type="checkbox" id="complete" name="complete" />
+      <p className=" font-medium text-lg">{title}</p>
+      {/* <p>Time</p> */}
+      <div>{isCompleted ? <p className="text-green-500">Done</p> : <p className="text-red-500"> Pending </p>}</div>
+      <p>{description}</p>
       <div className="flex items-center justify-between">
-        <Button className="mx-2 bg-[#FF6666] text-white p-2 rounded-lg">
+        <Button onClick={() => dispatch(removeTodo(id))} className="mx-2 bg-red-500 text-white p-2 rounded-lg">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
