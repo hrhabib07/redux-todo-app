@@ -7,8 +7,9 @@ type TTodoCard = {
   description: string;
   id: string;
   isCompleted?: boolean;
+  priority: string;
 };
-const TodoCard = ({ title, description, id, isCompleted }: TTodoCard) => {
+const TodoCard = ({ title, description, id, isCompleted, priority }: TTodoCard) => {
   const dispatch = useAppDispatch();
 
   const handleToggleIsCompleteState = () => {
@@ -20,6 +21,7 @@ const TodoCard = ({ title, description, id, isCompleted }: TTodoCard) => {
       <p className=" font-medium text-lg">{title}</p>
       {/* <p>Time</p> */}
       <div>{isCompleted ? <p className="text-green-500">Done</p> : <p className="text-red-500"> Pending </p>}</div>
+      <p>{priority}</p>
       <p>{description}</p>
       <div className="flex items-center justify-between">
         <Button onClick={() => dispatch(removeTodo(id))} className="mx-2 bg-red-500 text-white p-2 rounded-lg">

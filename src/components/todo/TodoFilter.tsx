@@ -11,20 +11,21 @@ import {
 import { Button } from "../ui/button";
 
 const TodoFilter = () => {
-  const [position, setPosition] = React.useState("bottom");
+  const [priority, setPriority] = React.useState("");
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button className="bg-gradient-primary">Filter</Button>
+        <Button className="bg-gradient-primary">{priority ? `Priority : ${priority}` : "Filter"}</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel>Your priority</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
+        <DropdownMenuRadioGroup value={priority} onValueChange={setPriority}>
           <DropdownMenuRadioItem value="High">High</DropdownMenuRadioItem>
           <DropdownMenuRadioItem value="Medium">Medium</DropdownMenuRadioItem>
           <DropdownMenuRadioItem value="Low">Low</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="">None</DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>
     </DropdownMenu>

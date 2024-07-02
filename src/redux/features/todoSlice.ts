@@ -4,7 +4,8 @@ export type TTodo = {
     title: string,
     id: string,
     description: string,
-    isCompleted?: boolean
+    isCompleted?: boolean,
+    priority: string
 }
 
 type TInitialState = {
