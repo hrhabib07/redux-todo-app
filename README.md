@@ -1,7 +1,3 @@
-## Instruction for future developer - Pro Habib
-
-Make sure the edit button work properly Make sure the filter work properly Make sure the user get his own todo data
-
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
