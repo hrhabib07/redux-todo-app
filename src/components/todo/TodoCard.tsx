@@ -1,23 +1,44 @@
-import { removeTodo, toggleIsCompleteState } from "../../redux/features/todoSlice";
-import { useAppDispatch } from "../../redux/hook";
+import { useUpdateTodoMutation } from "../../redux/api/api";
+// import { removeTodo } from "../../redux/features/todoSlice";
+// import { useAppDispatch } from "../../redux/hook";
 import { Button } from "../ui/button";
 
 type TTodoCard = {
   title: string;
   description: string;
-  id: string;
+  _id: string;
   isCompleted?: boolean;
   priority: string;
 };
-const TodoCard = ({ title, description, id, isCompleted, priority }: TTodoCard) => {
-  const dispatch = useAppDispatch();
-
+const TodoCard = ({ title, description, isCompleted, priority, _id }: TTodoCard) => {
+  // const dispatch = useAppDispatch();
+  const [updateTodo, { isError }] = useUpdateTodoMutation();
+  if (isError) {
+    return <p>Something went wrong</p>;
+  }
   const handleToggleIsCompleteState = () => {
-    dispatch(toggleIsCompleteState(id));
+    // dispatch(toggleIsCompleteState(id));
+    const options = {
+      id: _id,
+      data: {
+        title,
+        description,
+        priority,
+        isCompleted: !isCompleted,
+      },
+    };
+    updateTodo(options);
   };
   return (
     <div className=" bg-white flex rounded-lg items-center p-2 border m-[5px] ">
-      <input className="mr-3" onClick={handleToggleIsCompleteState} type="checkbox" id="complete" name="complete" />
+      <input
+        className="mr-3"
+        onClick={handleToggleIsCompleteState}
+        type="checkbox"
+        id="complete"
+        name="complete"
+        checked={isCompleted}
+      />
       <div className=" w-full grid grid-cols-5">
         <p className=" font-semibold text-lg flex-1 text-start">{title}</p>
         {/* <p>Time</p> */}
@@ -39,7 +60,10 @@ const TodoCard = ({ title, description, id, isCompleted, priority }: TTodoCard) 
       </div>
       <div>
         <div className="space-x-5 flex items-center justify-between">
-          <Button onClick={() => dispatch(removeTodo(id))} className="mx-2 bg-red-500 text-white p-2 rounded-lg">
+          <Button
+            // onClick={() => dispatch(removeTodo(id))}
+            className="mx-2 bg-red-500 text-white p-2 rounded-lg"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
