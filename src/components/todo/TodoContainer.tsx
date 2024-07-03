@@ -29,7 +29,7 @@ const TodoContainer = () => {
       <div className="bg-gradient-primary w-full h-full p-[5px] rounded-lg">
         <div className=" bg-white rounded-lg p-3">
           {todos?.data?.length > 0 ? (
-            todos?.data?.map((todo: TTodo) => <TodoCard {...todo} key={todo.id}></TodoCard>)
+            todos?.data?.map((todo: TTodo) => <TodoCard {...todo} key={todo?._id}></TodoCard>)
           ) : (
             <div className="font-bold text-xl bg-white p-2 rounded-lg text-center">There is not pending task.</div>
           )}
